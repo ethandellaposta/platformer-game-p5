@@ -9,7 +9,14 @@ function Lava(x,y,w,h,cycles,offset){
   this.show = function(fc){
     fill(255,0,0)
     if(this.cycles!=0){
+      this.move(fc);
+    }else{
+      this.touchable = true;
+    }
+    rectMode(CENTER)
+    rect(this.x,this.y,this.w,this.h);
 
+    this.move = function(fc){
       var cycles = this.cycles;
       var offset = this.offset
       fc = fc+offset;
@@ -26,11 +33,9 @@ function Lava(x,y,w,h,cycles,offset){
       }else{
         this.touchable = false;
       }
-    }else{
-      this.touchable = true;
     }
-    rectMode(CENTER)
-    rect(this.x,this.y,this.w,this.h);
+
+
   }
 
 }

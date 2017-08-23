@@ -20,6 +20,8 @@ function Level1(lives){
   walls.push(new Wall(290,580, 200,40));
   walls.push(new Wall(710,580, 200,40));
   walls.push(new Wall(500,400, 200,200));
+  //Wall(x,y,w,h,x2,y2,cycles,offset)
+  walls.push(new Wall(100,250, 200,20,800,350,300,0));
   squares=[]
   squares.push(new Square(290,530))
   squares.push(new Square(710,530))

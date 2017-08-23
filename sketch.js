@@ -56,16 +56,6 @@ function draw(){
       if(!paused){
         //Global
         background(140,223,252);
-        if(game.level==1){
-            // fill(0);
-            // textSize(23)
-            // text('use <-   -> arrows to move',50,100);
-            // text('use ^ arrow to jump and climb walls',10,200)
-            // text('collect all the blocks',700,100);
-            // text('then move on to the next level',650,200)
-            // text('by collecting the diamond',670,250)
-            // text("don't touch the lava!",410,670)
-        }
         //Ball
         ball.show(0)
         if(keyIsDown(RIGHT_ARROW)){
@@ -82,7 +72,7 @@ function draw(){
 
         //Walls
         for(var i=0; i<walls.length; i++){
-          walls[i].show();
+          walls[i].show(frameCount);
         }
         //Lava
         for(var i=0; i<lavas.length; i++){
