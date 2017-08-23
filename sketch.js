@@ -18,7 +18,6 @@ var diamond;
 var done;
 var game;
 var level;
-var lives;
 var paused;
 var start = false;
 function preload(){
@@ -39,7 +38,7 @@ function mouseClicked(){
   ybound = mouseY >300 && mouseY <430;
   xbound = mouseX >650 && mouseX <910;
   if(ybound && xbound){
-    game = new Game(1,5)
+    game = new Game(3,5)
     start = true;
     //borders
     new Border(-10,350, 20,700);
@@ -53,21 +52,27 @@ function mouseClicked(){
 function draw(){
   if(start){
     if(ball.lives != 0){
-      if(!paused){
+
         //Global
         background(140,223,252);
-        //Ball
-        ball.show(0)
-        if(keyIsDown(RIGHT_ARROW)){
-            Matter.Body.setVelocity(ball.circle,{ x: 4, y: ball.circle.velocity.y })
-        }
-        if(keyIsDown(LEFT_ARROW)){
-            Matter.Body.setVelocity(ball.circle,{ x: -4, y: ball.circle.velocity.y })
-        }
-        if(collision(walls)){
-          if(keyIsDown(DOWN_ARROW)){
-              Matter.Body.setVelocity(ball.circle, { x: ball.circle.velocity.x/2, y: ball.circle.velocity.y/2 })
+        if(!paused){
+
+          //Ball
+          ball.show(0)
+          lavaCollision(lavas);
+          if(keyIsDown(RIGHT_ARROW)){
+              Matter.Body.setVelocity(ball.circle,{ x: 4, y: ball.circle.velocity.y })
           }
+          if(keyIsDown(LEFT_ARROW)){
+              Matter.Body.setVelocity(ball.circle,{ x: -4, y: ball.circle.velocity.y })
+          }
+          if(collision(walls)){
+            if(keyIsDown(DOWN_ARROW)){
+                Matter.Body.setVelocity(ball.circle, { x: ball.circle.velocity.x/2, y: ball.circle.velocity.y/2 })
+            }
+          }
+        }else{
+
         }
 
         //Walls
@@ -83,7 +88,6 @@ function draw(){
           squares[i].show();
         }
         squareCollision(squares);
-        lavaCollision(lavas);
         //Diamond
         if(squares.length==0){
           collisionDiamond(diamond)
@@ -92,11 +96,20 @@ function draw(){
         fill(255);
         textSize(20)
         level = text('Level '+game.level,100,25)
-        lives = text(ball.lives,850,25)
-        imageMode(CENTER)
-        image(img,880,19,20,20);
+        if(!paused){
+          lives = text(ball.lives,850,25)
+          imageMode(CENTER)
+          image(img,880,19,20,20);
+        }else{
+          fill(255,0,0);
+          textSize(25)
+          lives = text(ball.lives,850,27)
+          imageMode(CENTER)
+          image(img,880,19,25,25);
+        }
 
-      }
+
+
     }else{
       World.remove(world,ball.circle);
       background(0);
@@ -105,10 +118,7 @@ function draw(){
       gameover = text('GAME OVER', 300,350)
       fill(150);
       textSize(30);
-      start = text('Press any key to start over.', 300,500)
-      if (keyIsPressed === true){
-        game=new Game(1,5)
-      }
+      start = text('Press enter to start over.', 315,500)
 
     }
   }
@@ -121,6 +131,11 @@ function keyPressed(){
   if(collision(walls)){
     if(keyCode === UP_ARROW){
         Matter.Body.setVelocity(ball.circle, { x: ball.circle.velocity.x, y: -10 })
+    }
+  }
+  if(ball.lives==0){
+    if(keyCode === ENTER){
+      game=new Game(1,5)
     }
   }
 }
@@ -181,7 +196,7 @@ function lavaCollision(l){
         if(ball.lives==1){
           delay=0;
         }else{
-          delay = 500;
+          delay = 700;
         }
         ball.lives -=1;
         setTimeout(function() {
@@ -209,5 +224,13 @@ function collisionDiamond(d){
     new_lvl = game.level+1;
     World.remove(world,ball.circle);
     game = new Game(new_lvl,ball.lives)
+  }
+}
+
+function clearWalls(){
+  if(walls){
+    for(var z=0;z<walls.length;z++){
+      World.remove(world,walls[z].box);
+    }
   }
 }

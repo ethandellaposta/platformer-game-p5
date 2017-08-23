@@ -8,5 +8,9 @@ function Game(level,lives){
     level2 = new Level2(lives);
     this.levelObject = level2;
   }
+  else if(this.level==3){
+    level3 = new Level3(lives);
+    this.levelObject = level3;
+  }
 
 }

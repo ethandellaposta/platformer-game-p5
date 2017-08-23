@@ -1,15 +1,12 @@
 function Level1(lives){
-  background(140,223,252);
   this.orgx = 85;
   this.orgy = 630;
   ball = new Ball(this.orgx,this.orgy,25,lives);
+  //Lava(x,y,w,h,cycles,offset)
   lavas=[]
   lavas.push(new Lava(500,690, 620,30,0));
-  if(walls){
-    for(var z=0;z<walls.length;z++){
-      World.remove(world,walls[z].box);
-    }
-  }
+  //Wall(x,y,w,h,x2,y2,cycles,offset)
+  clearWalls();
   walls=[]
   //top bar
   walls.push(new Wall(500,20, 1000,40));
@@ -20,8 +17,7 @@ function Level1(lives){
   walls.push(new Wall(290,580, 200,40));
   walls.push(new Wall(710,580, 200,40));
   walls.push(new Wall(500,400, 200,200));
-  //Wall(x,y,w,h,x2,y2,cycles,offset)
-  walls.push(new Wall(100,250, 200,20,800,350,300,0));
+  //Square(x,y)
   squares=[]
   squares.push(new Square(290,530))
   squares.push(new Square(710,530))
@@ -29,5 +25,6 @@ function Level1(lives){
   squares.push(new Square(630,400))
   squares.push(new Square(500,270))
   squares.push(new Square(500,120))
+  //Diamond(x,y)
   diamond = new Diamond(900,630)
 }
