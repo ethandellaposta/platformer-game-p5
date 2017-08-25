@@ -8,8 +8,7 @@ function Level1(lives){
   //Wall(x,y,w,h,x2,y2,cycles,offset)
   clearWalls();
   walls=[]
-  //top bar
-  walls.push(new Wall(500,20, 1000,40));
+  topbar();
   //other
   walls.push(new Wall(500,170, 170,40));
   walls.push(new Wall(90,680, 200,40));

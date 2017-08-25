@@ -38,7 +38,7 @@ function mouseClicked(){
   ybound = mouseY >300 && mouseY <430;
   xbound = mouseX >650 && mouseX <910;
   if(ybound && xbound){
-    game = new Game(3,5)
+    game = new Game(4,5)
     start = true;
     //borders
     new Border(-10,350, 20,700);
@@ -233,4 +233,8 @@ function clearWalls(){
       World.remove(world,walls[z].box);
     }
   }
+}
+
+function topbar(){
+    walls.push(new Wall(500,20, 1000,40));
 }
