@@ -2108,7 +2108,7 @@
                 gravity: {
                   x: 0,
                   y: 1,
-                  scale: 0.00025,
+                  scale: 0.001,
                 },
                 bounds: {
                   min: { x: -Infinity, y: -Infinity },
